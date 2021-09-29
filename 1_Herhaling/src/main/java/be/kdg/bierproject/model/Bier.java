@@ -59,8 +59,6 @@ public class Bier implements Comparable<Bier> {
     }
 
     public void setTrappist(boolean trappist) {
-        if(trappist !=  true && trappist != false)
-            throw new IllegalArgumentException("De waarde van getrouwd moet true of false zijn.");
         this.trappist = trappist;
     }
 

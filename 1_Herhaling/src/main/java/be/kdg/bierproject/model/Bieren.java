@@ -36,35 +36,34 @@ public class Bieren {
 
     public List<Bier> sortedOnName() {
         List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        Collections.sort(bierenList, new Comparator<Bier>() {
-            @Override
-            public int compare(Bier o1, Bier o2) {
-                return o1.getNaam().compareTo(o2.getNaam());
-            }
-        });
+        Collections.sort(bierenList, Collections.reverseOrder());
         return bierenList;
     }
 
     public List<Bier> sortedOnGebrouwenSinds() {
         List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        Collections.sort(bierenList, new Comparator<Bier>() {
-            @Override
-            public int compare(Bier o1, Bier o2) {
-                return o1.getGebrouwenSinds().compareTo(o2.getGebrouwenSinds());
-            }
-        });
+        bierenList.sort(new BierCompareOnGebrouwenSinds());
         return bierenList;
     }
 
     public List<Bier> sortedOnAlcoholpercentage()  {
         List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        Collections.sort(bierenList, new Comparator<Bier>() {
-            @Override
-            public int compare(Bier o1, Bier o2) {
-                return Double.compare(o1.getAlcoholPercentage(),o2.getAlcoholPercentage());
-            }
-        });
+        bierenList.sort(new BierenCompareOnAlcoholpercentage());
         return bierenList;
+    }
+
+    private static class BierCompareOnGebrouwenSinds implements Comparator<Bier> {
+        @Override
+        public int compare(Bier o1, Bier o2) {
+            return o1.getGebrouwenSinds().compareTo(o2.getGebrouwenSinds());
+        }
+    }
+
+    private static class BierenCompareOnAlcoholpercentage implements Comparator<Bier> {
+        @Override
+        public int compare(Bier o1, Bier o2) {
+            return Double.compare(o1.getAlcoholPercentage(),o2.getAlcoholPercentage());
+        }
     }
 
     public int getSize() {
