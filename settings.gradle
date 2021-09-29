@@ -1,3 +1,4 @@
 rootProject.name = 'groeiproject'
 include '1_Herhaling'
+include '2_Generics'
 
