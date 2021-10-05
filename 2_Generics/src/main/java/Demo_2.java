@@ -1,4 +1,8 @@
+import be.kdg.bierproject.data.Data;
 import be.kdg.bierproject.generics.PriorityQueue;
+import be.kdg.bierproject.model.Bier;
+
+import java.util.Random;
 
 /**
  * @author Maxim Derboven
@@ -6,7 +10,7 @@ import be.kdg.bierproject.generics.PriorityQueue;
  */
 public class Demo_2 {
     public static void main(String[] args) {
-        PriorityQueue<String> myQueue = new PriorityQueue<>();
+        var myQueue = new PriorityQueue<>();
         myQueue.enqueue("Tokio", 2);
         myQueue.enqueue("Denver", 5);
         myQueue.enqueue("Rio", 2);
@@ -16,9 +20,28 @@ public class Demo_2 {
         System.out.println("aantal: " + myQueue.getSize());
         System.out.println("positie van Tokio: " + myQueue.search("Tokio"));
         System.out.println("positie van Nairobi: " + myQueue.search("Nairobi"));
-        for (int i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
             System.out.println("Dequeue: " + myQueue.dequeue());
         }
         System.out.println("Size na dequeue: " + myQueue.getSize());
+
+
+        var bierenQueue = new PriorityQueue<Bier>();
+        var data = Data.getData();
+        var random = new Random();
+
+        for (var bier : data){
+            bierenQueue.enqueue(bier, random.nextInt(5)+1);
+        }
+
+        System.out.println("Overzicht van de PriorityQueue:");
+        System.out.println(bierenQueue);
+        System.out.println("aantal: " + bierenQueue.getSize());
+        System.out.println("positie van Duvel: " + bierenQueue.search(data.get(5)));
+        System.out.println("positie van Brugse Zot: " + bierenQueue.search(data.get(6)));
+        for (var i = 0; i < 10; i++) {
+            System.out.println("Dequeue: " + bierenQueue.dequeue());
+        }
+        System.out.println("Size na dequeue: " + bierenQueue.getSize());
     }
 }

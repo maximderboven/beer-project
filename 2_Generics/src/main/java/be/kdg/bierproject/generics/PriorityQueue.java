@@ -12,7 +12,7 @@ public class PriorityQueue<T> implements FIFOQueue<T> {
 
     @Override
     public boolean enqueue(T element, int priority) {
-        if (search(element) != -1) {
+        if (search(element) == -1) {
             if (queue.containsKey(priority)) {
                 queue.get(priority).add(element);
             } else {
@@ -26,24 +26,33 @@ public class PriorityQueue<T> implements FIFOQueue<T> {
 
     @Override
     public T dequeue() {
-        for (LinkedList<T> value : queue.values()) {
-            if (value.size() > 0) {
-                return value.remove(0);
-                //f (value.size() == 0) {
-                    //queue.remove
-                //} //?
-            }
+        if (queue.size() == 0) return null;
+        for (int priority : queue.keySet()) {
+            LinkedList<T> list = queue.get(priority);
+            T item = list.remove (0);
+            if (list.size() == 0) queue.remove (priority);
+            return item;
         }
         return null;
+
+//        for (LinkedList<T> value : queue.values()) {
+//            if (value.size() > 0) {
+//                return value.remove(0);
+//                //f (value.size() == 0) {
+//                //queue.remove
+//                //} //?
+//            }
+//        }
+
     }
+
 
     @Override
     public int search(T element) {
-        int positie = 0;
+        int positie = 1;
         for (LinkedList<T> value : queue.values()) {
             if (value.contains(element)) {
-                positie += value.indexOf(element);
-                return positie;
+                return positie + value.indexOf(element);
             } else {
                 positie += value.size();
             }
