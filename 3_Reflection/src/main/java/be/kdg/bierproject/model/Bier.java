@@ -14,20 +14,19 @@ public class Bier extends Drink {
     private boolean trappist;
 
     public Bier(String naam, Gisting gisting, LocalDate gebrouwenSinds, double alcoholPercentage, int bitterheidsgraad, boolean trappist) {
-        setNaam(naam);
+        super(naam,alcoholPercentage);
         setGisting(gisting);
         setGebrouwenSinds(gebrouwenSinds);
-        setAlcoholPercentage(alcoholPercentage);
         setBitterheidsgraad(bitterheidsgraad);
         setTrappist(trappist);
     }
 
     public Bier() {
-        this("Onbekend",Gisting.ONBEKEND,LocalDate.now(),0,0,false);
+        this("Onbekend",Gisting.ONBEKEND,LocalDate.of(2000,1,1),0,0,false);
     }
 
     public void setGisting(Gisting gisting) {
-        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
+        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE && gisting != Gisting.ONBEKEND)
             throw new IllegalArgumentException("Kies een juiste gisting.");
         this.gisting = gisting;
     }

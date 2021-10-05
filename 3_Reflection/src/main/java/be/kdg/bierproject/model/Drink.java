@@ -1,5 +1,7 @@
 package be.kdg.bierproject.model;
 
+import be.kdg.bierproject.reflection.CanRun;
+
 import java.util.Objects;
 
 /**
@@ -11,6 +13,13 @@ public class Drink implements Comparable<Drink>{
     protected String naam;
     protected double alcoholPercentage;
 
+    public Drink(String naam, double alcoholPercentage) {
+        this.naam = naam;
+        this.alcoholPercentage = alcoholPercentage;
+    }
+
+    @CanRun
+    //@CanRun("Naam")
     public void setNaam(String naam) {
         if (naam == null || naam.equals(""))
             throw new IllegalArgumentException("De naam mag niet leeg zijn.");
