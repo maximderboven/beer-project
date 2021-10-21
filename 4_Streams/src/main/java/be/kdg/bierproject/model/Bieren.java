@@ -1,6 +1,7 @@
 package be.kdg.bierproject.model;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @author Maxim Derboven
@@ -34,21 +35,9 @@ public class Bieren {
         return null;
     }
 
-    public List<Bier> sortedOnName() {
+    public List<Bier> sortedBy(Function<Bier,Comparable> function) {
         List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        Collections.sort(bierenList, Collections.reverseOrder());
-        return bierenList;
-    }
-
-    public List<Bier> sortedOnGebrouwenSinds() {
-        List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        bierenList.sort(new BierCompareOnGebrouwenSinds());
-        return bierenList;
-    }
-
-    public List<Bier> sortedOnAlcoholpercentage()  {
-        List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
-        bierenList.sort(new BierenCompareOnAlcoholpercentage());
+        bierenList.sort(Comparator.comparing(function));
         return bierenList;
     }
 
