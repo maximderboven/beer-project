@@ -23,7 +23,21 @@ class BierTest {
 
     @Test
     public void testEquals() {
-        assertNotEquals(b1.hashCode(), b2.hashCode(), "De hashCode van 2 verschillende presidents komen overeen.");
-        assertEquals(b2.hashCode(), b1.hashCode(), "2 presidents met dezelfde naam moeten equal zijn.");
+        assertNotEquals(b1.hashCode(), b2.hashCode(), "Hashcode komt niet overeen");
+        assertEquals(b2.hashCode(), b1.hashCode(), "Hashcode komt overeen");
+    }
+
+    @Test
+    void testIllegalName() {
+
+
+    }
+    @Test
+    void testlegalName() {
+
+    }
+
+    @Test
+    void testCompareTo() {
     }
 }
