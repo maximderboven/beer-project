@@ -23,21 +23,30 @@ class BierTest {
 
     @Test
     public void testEquals() {
-        assertNotEquals(b1.hashCode(), b2.hashCode(), "Hashcode komt niet overeen");
-        assertEquals(b2.hashCode(), b1.hashCode(), "Hashcode komt overeen");
+        Bier b3 = new Bier("Jupiler",Gisting.LAGE, LocalDate.of(1966 ,1,1),5.2,18,false);
+        assertNotEquals(b1.hashCode(), b2.hashCode(), "De naam komt niet overeen");
+        assertEquals(b2.hashCode(), b3.hashCode(), "De naam komt overeen");
     }
 
     @Test
     void testIllegalName() {
-
-
+        assertThrows(IllegalArgumentException.class,()->b1.setNaam(""),"De naam mag niet leeg zijn");
     }
     @Test
-    void testlegalName() {
-
+    void testLegalName() {
+        assertDoesNotThrow(()->b1.setNaam("Naam"),"De naam is correct ingevuld.");
     }
 
     @Test
     void testCompareTo() {
+        Bier b3 = new Bier("Jupiler",Gisting.LAGE, LocalDate.of(1966 ,1,1),5.2,18,false);
+        assertNotEquals(b2.compareTo(b1), b1.compareTo(b2), "2 bieren met een andere naam zijn niet hetzelfde.");
+        assertEquals(0, b2.compareTo(b3), "2 bieren met dezelfde naam hebben zijn hetzelfde");
+    }
+
+    @Test
+    void testAlcoholPercentage() {
+        //assertEquals(b1.getAlcoholPercentage(),b2.getAlcoholPercentage(),"Zelfde alcoholpercentage");
+        assertNotEquals(b1.getAlcoholPercentage(),b2.getAlcoholPercentage(),"Niet hetzelfde alcoholpercentage");
     }
 }

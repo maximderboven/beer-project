@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2021-10-25T11:44:42.055738800Z</date>
+  <millis>1635162282055</millis>
+  <nanos>738800</nanos>
+  <sequence>0</sequence>
+  <logger>be.kdg.bierproject.model.Bier</logger>
+  <level>SEVERE</level>
+  <class>be.kdg.bierproject.model.Bier</class>
+  <method>setNaam</method>
+  <thread>1</thread>
+  <message>De naam mag niet  (leeg) zijn.</message>
+</record>
+<record>
+  <date>2021-10-25T11:44:42.126301100Z</date>
+  <millis>1635162282126</millis>
+  <nanos>301100</nanos>
+  <sequence>1</sequence>
+  <logger>be.kdg.bierproject.model.Bier</logger>
+  <level>SEVERE</level>
+  <class>be.kdg.bierproject.model.Bier</class>
+  <method>setGebrouwenSinds</method>
+  <thread>1</thread>
+  <message>De brouwdatum moet in het verleden liggen en mag niet; 2025-06-23 zijn.</message>
+</record>
+<record>
+  <date>2021-10-25T11:44:42.127801200Z</date>
+  <millis>1635162282127</millis>
+  <nanos>801200</nanos>
+  <sequence>2</sequence>
+  <logger>be.kdg.bierproject.model.Bier</logger>
+  <level>SEVERE</level>
+  <class>be.kdg.bierproject.model.Bier</class>
+  <method>setAlcoholPercentage</method>
+  <thread>1</thread>
+  <message>Alcoholpercentage kan niet lager zijn dan 0 en niet hoger dan 100. Mag niet: 102.5 zijn.</message>
+</record>
+<record>
+  <date>2021-10-25T11:44:42.131304500Z</date>
+  <millis>1635162282131</millis>
+  <nanos>304500</nanos>
+  <sequence>3</sequence>
+  <logger>be.kdg.bierproject.model.Bier</logger>
+  <level>SEVERE</level>
+  <class>be.kdg.bierproject.model.Bier</class>
+  <method>setBitterheidsgraad</method>
+  <thread>1</thread>
+  <message>De EBU waarde moet tenminste 0 zijn. Mag niet: -15 zijn.</message>
+</record>
+</log>
