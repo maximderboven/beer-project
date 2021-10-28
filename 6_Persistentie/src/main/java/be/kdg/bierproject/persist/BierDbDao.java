@@ -1,11 +1,10 @@
 package be.kdg.bierproject.persist;
 
 import be.kdg.bierproject.model.Bier;
+import be.kdg.bierproject.model.Gisting;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +18,7 @@ public class BierDbDao implements BierDao {
     private final Logger logger = Logger.getLogger("be.kdg.bierproject.persist.BierDbDao");
 
     public BierDbDao(String databasePath) {
-        maakConnectie("db/myDatabase");
+        maakConnectie(databasePath);
         createTable();
     }
 
@@ -66,30 +65,116 @@ public class BierDbDao implements BierDao {
         }
     }
 
-
-
     @Override
     public boolean insert(Bier bier) {
-        return false;
+        if (bier.getId() >= 0) return false; //bier heeft al PK dus bestaat al in database
+        try {
+            PreparedStatement prepStatement = connection.prepareStatement(
+                    "INSERT INTO bierendb (id, naam, gisting, gebrouwenSinds, alcoholpercentage, trappist, bitterheidsgraad) " +
+                            "VALUES (NULL, ?, ?, ?, ?,?,?)");
+            prepStatement.setString(1, bier.getNaam());
+            prepStatement.setInt(2, bier.getGisting().ordinal());
+            prepStatement.setDate(3, Date.valueOf(bier.getGebrouwenSinds()));
+            prepStatement.setDouble(4,bier.getAlcoholPercentage());
+            prepStatement.setInt(5, bier.isTrappist() ? 1 : 0);
+            prepStatement.setInt(6, bier.getBitterheidsgraad());
+            boolean result = prepStatement.executeUpdate() == 1;
+            prepStatement.close();
+            System.out.println("Bier=" + bier.getNaam() + " succesvol toegevoegd");
+            return result;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,"Fout bij create: " + e);
+            return false;
+        }
     }
 
     @Override
     public boolean delete(String naam) {
-        return false;
+        try {
+            Statement statement = connection.createStatement();
+            int rowsAffected = statement.executeUpdate("DELETE "+naam+" FROM bierendb");
+            statement.close();
+            return (rowsAffected == 1);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,"Fout bij delete: " + e);
+            return false;
+        }
     }
 
     @Override
     public boolean update(Bier bier) {
-        return false;
+        if (bier.getId() >= 0) return false; //bier heeft al PK dus bestaat al in database
+        try {
+            PreparedStatement prepStatement = connection.prepareStatement(
+                    "UPDATE bierendb SET naam = ?, gisting = ?, gebrouwenSinds = ?, alcoholpercentage = ?, trappist = ?, bitterheidsgraad = ? WHERE id = ?");
+            prepStatement.setString(1, bier.getNaam());
+            prepStatement.setInt(2, bier.getGisting().ordinal());
+            prepStatement.setDate(3, Date.valueOf(bier.getGebrouwenSinds()));
+            prepStatement.setDouble(4,bier.getAlcoholPercentage());
+            prepStatement.setInt(5, bier.isTrappist() ? 1 : 0);
+            prepStatement.setInt(6, bier.getBitterheidsgraad());
+            prepStatement.setInt(7, bier.getId());
+            boolean result = prepStatement.executeUpdate() == 1;
+            prepStatement.close();
+            return result;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,"Fout bij update: " + e);
+            return false;
+        }
     }
 
     @Override
     public Bier retrieve(String naam) {
+        List<Bier> bieren = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM bierendb WHERE naam ='" + naam + "'");
+            while(rs.next()){
+                bieren.add(new Bier(
+                        rs.getInt("ID"),
+                        rs.getString("NAAM"),
+                        Gisting.values()[rs.getInt("GISTING")],
+                        rs.getDate("GEBROUWENSINDS").toLocalDate(),
+                        rs.getDouble("ALCOHOLPERCENTAGE"),
+                        rs.getInt("BITTERHEIDSGRAAD"),
+                        rs.getInt("TRAPPIST") == 1
+                ));
+            }
+            return bieren.get(0);
+        }catch(SQLException e){
+            logger.log(Level.SEVERE,"Fout bij opvragen: Geen persoon met volgende naam gevonden " + naam);
+        }
         return null;
     }
 
     @Override
     public List<Bier> sortedOn(String query) {
+        List<Bier> bieren = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM bierendb ORDER BY " + query);
+            while(rs.next()){
+                bieren.add(new Bier(
+                        rs.getInt("ID"),
+                        rs.getString("NAAM"),
+                        Gisting.values()[rs.getInt("GISTING")],
+                        rs.getDate("GEBROUWENSINDS").toLocalDate(),
+                        rs.getDouble("ALCOHOLPERCENTAGE"),
+                        rs.getInt("BITTERHEIDSGRAAD"),
+                        rs.getInt("TRAPPIST") == 1
+                ));
+            }
+            return bieren;
+        }catch(SQLException e){
+            logger.log(Level.SEVERE,"Fout bij sorteren: niks gevonden");
+        }
         return null;
+    }
+
+    public List<Bier> sortedOnName(){
+        return sortedOn("naam");
+    }
+    public List<Bier> sortedOnAlcholpercentage(){
+        return sortedOn("alcoholpercentage");
     }
 }

@@ -31,7 +31,7 @@ public class Data {
         bieren.add(new Bier("Jupiler",Gisting.LAGE, LocalDate.of(1966 ,1,1),5.2,18,false));
 
         //dubbele
-        bieren.add(new Bier("Jupiler",Gisting.LAGE, LocalDate.of(1966 ,1,1),5.2,18,false));
+        //bieren.add(new Bier("Jupiler",Gisting.LAGE, LocalDate.of(1966 ,1,1),5.2,18,false));
         return bieren;
     }
 }
