@@ -5,4 +5,5 @@ include '3_Reflection'
 include '4_Streams'
 include '5_Logging'
 include '6_Persistentie'
+include '7_XML_JSON'
 
