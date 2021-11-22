@@ -39,7 +39,8 @@ public class BierenDomParser {
                 LocalDate gebrouwenSinds = LocalDate.parse(e.getElementsByTagName("gebrouwenSinds").item(0).getTextContent());
                 double alcoholPercentage = Double.parseDouble(e.getElementsByTagName("alcoholpercentage").item(0).getTextContent());
                 int bitterheidsgraad = Integer.parseInt(e.getElementsByTagName("bitterheidsgraad").item(0).getTextContent());
-                bieren.add(new Bier(naam,gisting,gebrouwenSinds,alcoholPercentage,bitterheidsgraad,false));
+                boolean trappist = Boolean.parseBoolean(e.getElementsByTagName("trappist").item(0).getTextContent());
+                bieren.add(new Bier(naam,gisting,gebrouwenSinds,alcoholPercentage,bitterheidsgraad,trappist));
             }
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();

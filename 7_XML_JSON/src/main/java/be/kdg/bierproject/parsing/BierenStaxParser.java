@@ -70,5 +70,9 @@ public class BierenStaxParser {
         xmlStreamWriter.writeStartElement("bitterheidsgraad");
         xmlStreamWriter.writeCharacters(String.valueOf(bier.getBitterheidsgraad()));
         xmlStreamWriter.writeEndElement();
+
+        xmlStreamWriter.writeStartElement("trappist");
+        xmlStreamWriter.writeCharacters(String.valueOf(bier.isTrappist()));
+        xmlStreamWriter.writeEndElement();
     }
 }

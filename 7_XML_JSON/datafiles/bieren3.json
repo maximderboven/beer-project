@@ -1,0 +1,182 @@
+[
+  {
+    "naam": "Bolleke",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1833,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 5.2,
+    "bitterheidsgraad": 23,
+    "trappist": false
+  },
+  {
+    "naam": "Ciney",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1978,
+      "month": 6,
+      "day": 23
+    },
+    "alcoholPercentage": 7.0,
+    "bitterheidsgraad": 0,
+    "trappist": false
+  },
+  {
+    "naam": "Duvel",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1970,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 8.5,
+    "bitterheidsgraad": 32,
+    "trappist": false
+  },
+  {
+    "naam": "Leffe Bruin",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1952,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 6.5,
+    "bitterheidsgraad": 15,
+    "trappist": false
+  },
+  {
+    "naam": "Palm",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1929,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 5.2,
+    "bitterheidsgraad": 18,
+    "trappist": false
+  },
+  {
+    "naam": "La Chouffe",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1982,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 8.0,
+    "bitterheidsgraad": 0,
+    "trappist": false
+  },
+  {
+    "naam": "Grimbergen Blond",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1993,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 6.7,
+    "bitterheidsgraad": 22,
+    "trappist": false
+  },
+  {
+    "naam": "Hommelbier",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1981,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 7.5,
+    "bitterheidsgraad": 40,
+    "trappist": false
+  },
+  {
+    "naam": "Westvleteren Blond",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 1838,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 5.8,
+    "bitterheidsgraad": 41,
+    "trappist": true
+  },
+  {
+    "naam": "Cornet",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 2014,
+      "month": 8,
+      "day": 26
+    },
+    "alcoholPercentage": 8.5,
+    "bitterheidsgraad": 25,
+    "trappist": false
+  },
+  {
+    "naam": "Corona",
+    "gisting": "LAGE",
+    "gebrouwenSinds": {
+      "year": 1925,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 4.5,
+    "bitterheidsgraad": 0,
+    "trappist": false
+  },
+  {
+    "naam": "Brugse Zot",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 2005,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 6.0,
+    "bitterheidsgraad": 23,
+    "trappist": false
+  },
+  {
+    "naam": "Cristal Alken",
+    "gisting": "LAGE",
+    "gebrouwenSinds": {
+      "year": 1928,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 5.0,
+    "bitterheidsgraad": 20,
+    "trappist": false
+  },
+  {
+    "naam": "Omer.",
+    "gisting": "HOGE",
+    "gebrouwenSinds": {
+      "year": 2008,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 8.0,
+    "bitterheidsgraad": 35,
+    "trappist": false
+  },
+  {
+    "naam": "Jupiler",
+    "gisting": "LAGE",
+    "gebrouwenSinds": {
+      "year": 1966,
+      "month": 1,
+      "day": 1
+    },
+    "alcoholPercentage": 5.2,
+    "bitterheidsgraad": 18,
+    "trappist": false
+  }
+]

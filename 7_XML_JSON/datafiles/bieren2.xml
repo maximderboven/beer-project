@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bieren>
+    <bier gisting="HOGE">
+        <naam>Bolleke</naam>
+        <gebrouwen-sinds>1833-01-01</gebrouwen-sinds>
+        <alcohol-percentage>5.2</alcohol-percentage>
+        <bitterheidsgraad>23</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Ciney</naam>
+        <gebrouwen-sinds>1978-06-23</gebrouwen-sinds>
+        <alcohol-percentage>7.0</alcohol-percentage>
+        <bitterheidsgraad>0</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Duvel</naam>
+        <gebrouwen-sinds>1970-01-01</gebrouwen-sinds>
+        <alcohol-percentage>8.5</alcohol-percentage>
+        <bitterheidsgraad>32</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Leffe Bruin</naam>
+        <gebrouwen-sinds>1952-01-01</gebrouwen-sinds>
+        <alcohol-percentage>6.5</alcohol-percentage>
+        <bitterheidsgraad>15</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Palm</naam>
+        <gebrouwen-sinds>1929-01-01</gebrouwen-sinds>
+        <alcohol-percentage>5.2</alcohol-percentage>
+        <bitterheidsgraad>18</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>La Chouffe</naam>
+        <gebrouwen-sinds>1982-01-01</gebrouwen-sinds>
+        <alcohol-percentage>8.0</alcohol-percentage>
+        <bitterheidsgraad>0</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Grimbergen Blond</naam>
+        <gebrouwen-sinds>1993-01-01</gebrouwen-sinds>
+        <alcohol-percentage>6.7</alcohol-percentage>
+        <bitterheidsgraad>22</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Hommelbier</naam>
+        <gebrouwen-sinds>1981-01-01</gebrouwen-sinds>
+        <alcohol-percentage>7.5</alcohol-percentage>
+        <bitterheidsgraad>40</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Westvleteren Blond</naam>
+        <gebrouwen-sinds>1838-01-01</gebrouwen-sinds>
+        <alcohol-percentage>5.8</alcohol-percentage>
+        <bitterheidsgraad>41</bitterheidsgraad>
+        <trappist>true</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Cornet</naam>
+        <gebrouwen-sinds>2014-08-26</gebrouwen-sinds>
+        <alcohol-percentage>8.5</alcohol-percentage>
+        <bitterheidsgraad>25</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="LAGE">
+        <naam>Corona</naam>
+        <gebrouwen-sinds>1925-01-01</gebrouwen-sinds>
+        <alcohol-percentage>4.5</alcohol-percentage>
+        <bitterheidsgraad>0</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Brugse Zot</naam>
+        <gebrouwen-sinds>2005-01-01</gebrouwen-sinds>
+        <alcohol-percentage>6.0</alcohol-percentage>
+        <bitterheidsgraad>23</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="LAGE">
+        <naam>Cristal Alken</naam>
+        <gebrouwen-sinds>1928-01-01</gebrouwen-sinds>
+        <alcohol-percentage>5.0</alcohol-percentage>
+        <bitterheidsgraad>20</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="HOGE">
+        <naam>Omer.</naam>
+        <gebrouwen-sinds>2008-01-01</gebrouwen-sinds>
+        <alcohol-percentage>8.0</alcohol-percentage>
+        <bitterheidsgraad>35</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+    <bier gisting="LAGE">
+        <naam>Jupiler</naam>
+        <gebrouwen-sinds>1966-01-01</gebrouwen-sinds>
+        <alcohol-percentage>5.2</alcohol-percentage>
+        <bitterheidsgraad>18</bitterheidsgraad>
+        <trappist>false</trappist>
+    </bier>
+</bieren>
