@@ -17,9 +17,9 @@ import java.util.List;
  * @version 1.0 21/11/2021 20:57
  */
 public class BierenGsonParser {
-    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
     public static void writeJson(Bieren bieren, String fileName) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
         String jsonString = gson.toJson(bieren.getBierenList());
         try (FileWriter jsonWriter = new FileWriter(fileName)) {
             jsonWriter.write(jsonString);
@@ -29,16 +29,16 @@ public class BierenGsonParser {
     }
 
     public static Bieren readJson(String fileName) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
         Bieren bieren = new Bieren();
         try (BufferedReader data = new BufferedReader(new FileReader(fileName))) {
-            Bier[] bierArray = gson.fromJson(data, Bier[].class);
-            List<Bier> bierenlijst = Arrays.asList(bierArray);
-            for (Bier bier : bierenlijst) {
-                bieren.add(bier);
-            }
+            Bier[] array = gson.fromJson(data, Bier[].class);
+            Arrays.stream(array).forEach(bieren::add);
+            return bieren;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return bieren;
+        return null;
     }
 }

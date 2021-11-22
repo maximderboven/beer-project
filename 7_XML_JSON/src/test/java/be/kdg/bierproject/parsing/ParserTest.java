@@ -13,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0 21/11/2021 11:44
  */
 class ParserTest {
-    Bieren bieren = new Bieren();
+    Bieren bieren;
 
     @BeforeEach
     void setUp() {
+        bieren = new Bieren();
         Data.getData().forEach(bieren::add);
     }
 
@@ -24,21 +25,21 @@ class ParserTest {
     void testStaxDom() {
         new BierenStaxParser("./datafiles/bieren.xml").staxWriteXML();
         Bieren bieren2 = BierenDomParser.domReadXML("./datafiles/bieren.xml");
-        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray());
+        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray(), "Bieren zijn niet allemaal aanwezig");
     }
 
     @Test
     void testJaxb() {
         BierenJaxbParser.JaxbWriteXml("./datafiles/bieren2.xml",bieren);
-        Bieren bieren2 = BierenJaxbParser.JaxbReadXml("./datafiles/bieren2.xml", bieren.getClass());
-        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray());
+        Bieren bieren2 = BierenJaxbParser.JaxbReadXml("./datafiles/bieren2.xml", Bieren.class);
+        assertEquals(bieren,bieren2);
     }
 
     @Test
     void testGson() {
         BierenGsonParser.writeJson(bieren,"./datafiles/bieren3.json");
         Bieren bieren2 = BierenGsonParser.readJson("./datafiles/bieren3.json");
-        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray());
+        assertEquals(bieren,bieren2);
     }
 
 }

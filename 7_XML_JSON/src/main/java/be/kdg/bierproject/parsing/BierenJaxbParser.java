@@ -25,15 +25,13 @@ public class BierenJaxbParser {
         }
     }
     public static <T> T JaxbReadXml(String file, Class<T> typeParameterClass) {
-        Bieren bieren = new Bieren();
         try {
             JAXBContext context = JAXBContext.newInstance(typeParameterClass);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            bieren = (Bieren) unmarshaller.unmarshal(new File(file));
-            bieren.getBierenList().forEach(System.out::println);
+            return (T) unmarshaller.unmarshal(new File(file));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return (T) bieren;
+        return null;
     }
 }
