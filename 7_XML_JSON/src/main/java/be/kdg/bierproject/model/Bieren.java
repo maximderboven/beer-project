@@ -1,32 +1,45 @@
 package be.kdg.bierproject.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
 /**
  * @author Maxim Derboven
  * @version 1.0 23/09/2021 15:14
  */
+@XmlRootElement(name = "bieren")
 public class Bieren {
-    private Set<Bier> bierenTreeSet = new TreeSet<>();
+
+    private List<Bier> bierenList = new ArrayList<Bier>();
+
+    public List<Bier> getBierenList() {
+        return bierenList;
+    }
+
+    @XmlElement(name = "bier")
+    public void setBierenList(List<Bier> bierenList) {
+        this.bierenList = bierenList;
+    }
 
     public boolean add(Bier bier) {
-        if (bierenTreeSet.contains(bier))
+        if (bierenList.contains(bier))
             return false;
-        return bierenTreeSet.add(bier);
+        return bierenList.add(bier);
     }
 
     public boolean remove(String naam) {
-        for (Iterator<Bier> iterator = bierenTreeSet.iterator(); iterator.hasNext(); ) {
+        for (Iterator<Bier> iterator = bierenList.iterator(); iterator.hasNext(); ) {
             Bier b = iterator.next();
             if (b.getNaam().equals(naam)) {
-                return bierenTreeSet.remove(b);
+                return bierenList.remove(b);
             }
         }
         return false;
     }
 
     public Bier search(String naam) {
-        for (Bier bier : bierenTreeSet) {
+        for (Bier bier : bierenList) {
             if (bier.getNaam().equals(naam)) {
                 return bier;
             }
@@ -35,19 +48,19 @@ public class Bieren {
     }
 
     public List<Bier> sortedOnName() {
-        List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
+        List<Bier> bierenList = new ArrayList<>(this.bierenList);
         Collections.sort(bierenList, Collections.reverseOrder());
         return bierenList;
     }
 
     public List<Bier> sortedOnGebrouwenSinds() {
-        List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
+        List<Bier> bierenList = new ArrayList<>(this.bierenList);
         bierenList.sort(new BierCompareOnGebrouwenSinds());
         return bierenList;
     }
 
     public List<Bier> sortedOnAlcoholpercentage()  {
-        List<Bier> bierenList = new ArrayList<>(bierenTreeSet);
+        List<Bier> bierenList = new ArrayList<>(this.bierenList);
         bierenList.sort(new BierenCompareOnAlcoholpercentage());
         return bierenList;
     }
@@ -67,7 +80,7 @@ public class Bieren {
     }
 
     public int getSize() {
-        return bierenTreeSet.size();
+        return bierenList.size();
     }
 
 

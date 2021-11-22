@@ -1,5 +1,10 @@
 package be.kdg.bierproject.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -7,6 +12,7 @@ import java.util.Objects;
  * @author Maxim Derboven
  * @version 1.0 23/09/2021 15:13
  */
+@XmlType(propOrder = {"naam", "gebrouwenSinds", "alcoholPercentage", "bitterheidsgraad", "trappist"})
 public class Bier implements Comparable<Bier> {
     private String naam;
     private Gisting gisting;
@@ -28,36 +34,43 @@ public class Bier implements Comparable<Bier> {
         this("Onbekend",Gisting.ONBEKEND,LocalDate.now(),0,0,false);
     }
 
+    @XmlElement(name = "naam")
     public void setNaam(String naam) {
         if(naam == null || naam.equals(""))
             throw new IllegalArgumentException("De naam mag niet leeg zijn.");
         this.naam = naam;
     }
 
+    @XmlAttribute(name = "gisting")
     public void setGisting(Gisting gisting) {
         if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
             throw new IllegalArgumentException("Kies een juiste gisting.");
         this.gisting = gisting;
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlElement(name = "gebrouwen-sinds")
     public void setGebrouwenSinds(LocalDate gebrouwenSinds) {
         if(!gebrouwenSinds.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("De brouwdatum moet in het verleden liggen.");
         this.gebrouwenSinds = gebrouwenSinds;
     }
 
+    @XmlElement(name = "alcohol-percentage")
     public void setAlcoholPercentage(double alcoholPercentage) {
         if(alcoholPercentage <  0 || alcoholPercentage >= 100)
             throw new IllegalArgumentException("Alcoholpercentage kan niet lager zijn dan 0 en niet hoger dan 100.");
         this.alcoholPercentage = alcoholPercentage;
     }
 
+    @XmlElement(name = "bitterheidsgraad")
     public void setBitterheidsgraad(int bitterheidsgraad) {
         if(bitterheidsgraad <  0)
             throw new IllegalArgumentException("De EBU waarde moet tenminste 0 zijn.");
         this.bitterheidsgraad = bitterheidsgraad;
     }
 
+    @XmlElement(name = "trappist")
     public void setTrappist(boolean trappist) {
         this.trappist = trappist;
     }

@@ -57,8 +57,8 @@ class BierDbDaoTest {
     void testRetrieveUpdate() {
         Bier b = bierDbDao.retrieve("Omer.");
         b.setNaam("Omer");
-        bierDbDao.update(b);
-        assertNotNull(bierDbDao.retrieve("Omer"));
+        assertTrue(bierDbDao.update(b),"Update is niet goed gebeurd");
+        assertNotNull(bierDbDao.retrieve("Omer"),"Fout, Omer. is niet gewijzigd in Omer");
     }
 
     @Test
@@ -68,20 +68,17 @@ class BierDbDaoTest {
         for (Bier b : Data.getData()) {
             bieren.add(bierDbDao.retrieve(b.getNaam()));
         }
-        assertEquals(Data.getData().size() - 1, bieren.size(), "Niet goed verwijderd");
-        assertNull(bierDbDao.retrieve("Duvel"), "Niet goed verwijderd");
-        assertFalse(bierDbDao.delete("Duvel"), "Geen 2 keer verwijderen mogelijk");
+        assertNotEquals(Data.getData().size() - 1, bieren.size(), "Niet goed verwijderd");
+        assertNull(bierDbDao.retrieve("Duvel"), "Niet Goed verwijderd, bestaat alsnog");
+        assertFalse(bierDbDao.delete("Duvel"), "2 keer verwijderen mogelijk");
     }
 
     @Test
     void testSort() {
+        //Gaat niet juist gvesorteerd zijn: Database sorteerd ook nog op naam binnen zelfde alcoholpercentage.
+        //fixed door alcoholpercentage gedetailleerder te maken
         Bieren bieren = new Bieren();
-        for (Bier b : Data.getData()) {
-            bieren.add(b);
-        }
-        //List<Bier> biers = bieren.sortedOnAlcoholpercentage();
-        //assertEquals(biers.sort(Comparator.comparing(Bier::getNaam)), bierDbDao.sortedOnAlcholpercentage(), "Niet juist gesorteerd zenne");
-        assertTrue(true);
-        //WERKT NI BCS DE SQL WORDT OOK OP NAAM GESORTEERD
+        Data.getData().forEach(bieren::add);
+        assertArrayEquals(bieren.sortedOnAlcoholpercentage().toArray(),bierDbDao.sortedOnAlcholpercentage().toArray(), "Niet juist gesorteerd");
     }
 }

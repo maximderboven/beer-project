@@ -27,7 +27,7 @@ public class BierDbDao implements BierDao {
             connection = DriverManager.getConnection("jdbc:hsqldb:file:" + databasePath, "sa", "");
             System.out.println("Connection gemaakt");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Kan geen connectie maken met database " + databasePath);
+            logger.log(Level.SEVERE, "Kan geen connectie maken met database " + databasePath);
             System.exit(1);
         }
     }
@@ -41,7 +41,7 @@ public class BierDbDao implements BierDao {
             connection.close();
             System.out.println("\nDatabase gesloten");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Probleem bij sluiten van database:" + e.getMessage());
+            logger.log(Level.SEVERE, "Probleem bij sluiten van database:" + e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class BierDbDao implements BierDao {
             statement.execute(createQuery);
             System.out.println("Database aangemaakt");
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Onverwachte fout bij aanmaken tabel: " + e.getMessage());
+            logger.log(Level.SEVERE, "Onverwachte fout bij aanmaken tabel: " + e.getMessage());
             System.exit(1);
         }
     }
@@ -75,7 +75,7 @@ public class BierDbDao implements BierDao {
             prepStatement.setString(1, bier.getNaam());
             prepStatement.setInt(2, bier.getGisting().ordinal());
             prepStatement.setDate(3, Date.valueOf(bier.getGebrouwenSinds()));
-            prepStatement.setDouble(4,bier.getAlcoholPercentage());
+            prepStatement.setDouble(4, bier.getAlcoholPercentage());
             prepStatement.setInt(5, bier.isTrappist() ? 1 : 0);
             prepStatement.setInt(6, bier.getBitterheidsgraad());
             boolean result = prepStatement.executeUpdate() == 1;
@@ -83,7 +83,7 @@ public class BierDbDao implements BierDao {
             System.out.println("Bier=" + bier.getNaam() + " succesvol toegevoegd");
             return result;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Fout bij create: " + e);
+            logger.log(Level.SEVERE, "Fout bij create: " + e);
             return false;
         }
     }
@@ -92,33 +92,38 @@ public class BierDbDao implements BierDao {
     public boolean delete(String naam) {
         try {
             Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate("DELETE "+naam+" FROM bierendb");
+            int rowsAffected;
+            if (!naam.equals("*")) {
+                rowsAffected = statement.executeUpdate("DELETE FROM bierendb WHERE NAAM = '" + naam + "'");
+            } else {
+                rowsAffected = statement.executeUpdate("TRUNCATE TABLE bierendb");
+            }
             statement.close();
             return (rowsAffected == 1);
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Fout bij delete: " + e);
+            logger.log(Level.SEVERE, "Fout bij delete: " + e);
             return false;
         }
     }
 
     @Override
     public boolean update(Bier bier) {
-        if (bier.getId() >= 0) return false; //bier heeft al PK dus bestaat al in database
         try {
             PreparedStatement prepStatement = connection.prepareStatement(
                     "UPDATE bierendb SET naam = ?, gisting = ?, gebrouwenSinds = ?, alcoholpercentage = ?, trappist = ?, bitterheidsgraad = ? WHERE id = ?");
             prepStatement.setString(1, bier.getNaam());
             prepStatement.setInt(2, bier.getGisting().ordinal());
             prepStatement.setDate(3, Date.valueOf(bier.getGebrouwenSinds()));
-            prepStatement.setDouble(4,bier.getAlcoholPercentage());
+            prepStatement.setDouble(4, bier.getAlcoholPercentage());
             prepStatement.setInt(5, bier.isTrappist() ? 1 : 0);
             prepStatement.setInt(6, bier.getBitterheidsgraad());
             prepStatement.setInt(7, bier.getId());
             boolean result = prepStatement.executeUpdate() == 1;
             prepStatement.close();
+            System.out.println("Bier=" + bier.getNaam() + " succesvol gewijzigd");
             return result;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Fout bij update: " + e);
+            logger.log(Level.SEVERE, "Fout bij update: " + e);
             return false;
         }
     }
@@ -126,10 +131,10 @@ public class BierDbDao implements BierDao {
     @Override
     public Bier retrieve(String naam) {
         List<Bier> bieren = new ArrayList<>();
-        try{
+        try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM bierendb WHERE naam ='" + naam + "'");
-            while(rs.next()){
+            ResultSet rs = statement.executeQuery("SELECT * FROM bierendb WHERE NAAM ='" + naam + "'");
+            while (rs.next()) {
                 bieren.add(new Bier(
                         rs.getInt("ID"),
                         rs.getString("NAAM"),
@@ -140,9 +145,11 @@ public class BierDbDao implements BierDao {
                         rs.getInt("TRAPPIST") == 1
                 ));
             }
-            return bieren.get(0);
-        }catch(SQLException e){
-            logger.log(Level.SEVERE,"Fout bij opvragen: Geen persoon met volgende naam gevonden " + naam);
+            if (bieren.size() > 0) {
+                return bieren.get(0);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Fout bij opvragen: Geen bier met volgende naam gevonden " + naam);
         }
         return null;
     }
@@ -150,10 +157,10 @@ public class BierDbDao implements BierDao {
     @Override
     public List<Bier> sortedOn(String query) {
         List<Bier> bieren = new ArrayList<>();
-        try{
+        try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM bierendb ORDER BY " + query);
-            while(rs.next()){
+            while (rs.next()) {
                 bieren.add(new Bier(
                         rs.getInt("ID"),
                         rs.getString("NAAM"),
@@ -165,16 +172,17 @@ public class BierDbDao implements BierDao {
                 ));
             }
             return bieren;
-        }catch(SQLException e){
-            logger.log(Level.SEVERE,"Fout bij sorteren: niks gevonden");
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Fout bij sorteren: niks gevonden");
         }
         return null;
     }
 
-    public List<Bier> sortedOnName(){
+    public List<Bier> sortedOnName() {
         return sortedOn("naam");
     }
-    public List<Bier> sortedOnAlcholpercentage(){
+
+    public List<Bier> sortedOnAlcholpercentage() {
         return sortedOn("alcoholpercentage");
     }
 }
