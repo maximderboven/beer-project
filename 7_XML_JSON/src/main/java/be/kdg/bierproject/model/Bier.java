@@ -43,7 +43,7 @@ public class Bier implements Comparable<Bier> {
 
     @XmlAttribute(name = "gisting")
     public void setGisting(Gisting gisting) {
-        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
+        if(gisting != Gisting.ONBEKEND && gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
             throw new IllegalArgumentException("Kies een juiste gisting.");
         this.gisting = gisting;
     }
@@ -51,7 +51,7 @@ public class Bier implements Comparable<Bier> {
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlElement(name = "gebrouwen-sinds")
     public void setGebrouwenSinds(LocalDate gebrouwenSinds) {
-        if(!gebrouwenSinds.isBefore(LocalDate.now()))
+        if(gebrouwenSinds.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("De brouwdatum moet in het verleden liggen.");
         this.gebrouwenSinds = gebrouwenSinds;
     }

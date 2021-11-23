@@ -32,14 +32,14 @@ class ParserTest {
     void testJaxb() {
         BierenJaxbParser.JaxbWriteXml("./datafiles/bieren2.xml",bieren);
         Bieren bieren2 = BierenJaxbParser.JaxbReadXml("./datafiles/bieren2.xml", Bieren.class);
-        assertEquals(bieren,bieren2);
+        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray());
     }
 
     @Test
     void testGson() {
         BierenGsonParser.writeJson(bieren,"./datafiles/bieren3.json");
         Bieren bieren2 = BierenGsonParser.readJson("./datafiles/bieren3.json");
-        assertEquals(bieren,bieren2);
+        assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray());
     }
 
 }
