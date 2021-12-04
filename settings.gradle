@@ -6,4 +6,5 @@ include '4_Streams'
 include '5_Logging'
 include '6_Persistentie'
 include '7_XML_JSON'
+include '8_Datastructuren'
 
