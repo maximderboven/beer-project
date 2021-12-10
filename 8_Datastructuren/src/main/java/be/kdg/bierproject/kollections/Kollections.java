@@ -1,8 +1,11 @@
 package be.kdg.bierproject.kollections;
 
 public class Kollections {
+    private Kollections() {
+    }
+
     public static <T extends Comparable<T>> void selectionSort(List<T> list) {
-        for(int i = 0; i <= list.size(); i++){
+        for(int i = 0; i < list.size()-1; i++){
             int kleinste = i;
             for (int j = i+1; j < list.size(); j++){
                 if (list.get(j).compareTo(list.get(kleinste)) < 0){
@@ -106,18 +109,19 @@ public class Kollections {
         //if(kleiner) ga recursief dieper met rechtersublist
         //if groter ga .. linker ...
         //if gevonden return positie
-        if (to >= from) {
-            int midden = (from + to) / 2;
-
-            if (sortedList.get(midden) == element) {
-                return midden;
-            }
-            if (element.compareTo(sortedList.get(midden)) < 0) {
-                return binarySearch(sortedList, element, from, midden);
-            } else {
-                return binarySearch(sortedList, element, midden + 2, to);
-            }
+        int midden = (from + to) / 2;
+        T middleElem = sortedList.get(midden);
+        int comp = element.compareTo(middleElem);
+        if (midden == from) {
+            if (comp == 0) return midden;
+            return -1;
         }
-        return -1;
+        if (comp < 0) {
+            return binarySearch(sortedList, element, from, midden);
+        } else if (comp > 0) {
+            return binarySearch(sortedList, element, midden, to);
+        } else {
+            return midden;
+        }
     }
 }

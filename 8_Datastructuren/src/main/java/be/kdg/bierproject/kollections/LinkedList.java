@@ -89,7 +89,7 @@ public class LinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException("index: " + index + ", size: " + size);
         }
         Node<E> indexNode = root;
-        for (int i = 0; i < index - 1; i++) {
+        for (int i = 0; i < index; i++) {
             indexNode = indexNode.next;
         }
         return indexNode.value;

@@ -1,44 +1,62 @@
 import be.kdg.bierproject.kollections.*;
 import be.kdg.bierproject.model.Bier;
+import be.kdg.bierproject.model.BierFactory;
+
+import java.util.Random;
 
 /**
  * Maxim Derboven
  * 23/11/2021
  */
 public class PerformanceTester {
+
+    //TODO: change this method for own use
+    public static List<Bier> randomList(int n) {
+        List<Bier> myList = new LinkedList<>();
+        new Random().ints(n).forEach(i -> myList.add(BierFactory.newRandomBier()));
+        return myList;
+    }
+
     public static void compareArrayListAndLinkedList(int n) {
-        //add at beginning
         List<Bier> aList = new ArrayList<>();
-        Bier testbier = new Bier();
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < n; i++) {
-            aList.add(0, testbier);
-        }
-        long end = System.currentTimeMillis();
-        System.out.printf("Adding %d elements in ArrayList at beginning: %d ms\n", n, (end - start));
-
-
         List<Bier> lList = new LinkedList<>();
-        start = System.currentTimeMillis();
-        for (int i = 0; i < n; i++) {
-            lList.add(0, testbier);
-        }
-        end = System.currentTimeMillis();
-        System.out.printf("Adding %d elements in LinkedList at beginning: %d ms", n, (end - start));
+        //add at beginning
+        long startAddArrayList = System.currentTimeMillis();
+        new Random().ints(n).forEach(i -> aList.add(0, BierFactory.newRandomBier()));
+        long endAddArrayList = System.currentTimeMillis();
+        System.out.println("Adding " + n + " to Arraylist: " + (endAddArrayList - startAddArrayList) + "ms.");
+
+        long startAddLinkedList = System.currentTimeMillis();
+        new Random().ints(n).forEach(i -> lList.add(0, BierFactory.newRandomBier()));
+        long endAddLinkedList = System.currentTimeMillis();
+        System.out.println("Adding " + n + " to LinkedList: " + (endAddLinkedList-startAddLinkedList) + "ms");
 
         //get at end
-        start = System.currentTimeMillis();
-        for (int i = 0; i < n; i++) {
-            aList.get(aList.size() - 1);
-        }
-        end = System.currentTimeMillis();
-        System.out.printf("Getting %d elements in ArrayList at end: %d ms\n", n, (end - start));
+        long startGetArrayList = System.currentTimeMillis();
+        new Random().ints(n).forEach(i -> aList.get(n-1));
+        long endGetArrayList = System.currentTimeMillis();
+        System.out.println("Getting " + n + " Bieren from ArrayList: " + (endGetArrayList-startGetArrayList) + "ms");
 
-        start = System.currentTimeMillis();
-        for (int i = 0; i < n; i++) {
-            lList.get(lList.size() - 1);
+        long startGetLinkedList = System.currentTimeMillis();
+        new Random().ints(n).forEach(i -> lList.get(n-1));
+        long endGetLinkedList = System.currentTimeMillis();
+        System.out.println("Getting " + n + " Bieren from LinkedList: " + (endGetLinkedList-startGetLinkedList) + "ms");
+    }
+
+    public static void testSelectionSort() {
+        for (int n = 1000; n < 20000; n += 1000) {
+            Kollections.selectionSort(randomList(n));
+            System.out.println(n + ";" + Bier.compareCounter);
+            Bier.compareCounter = 0;
         }
-        end = System.currentTimeMillis();
-        System.out.printf("Getting %d elements in LinkedList at end: %d ms\n", n, (end - start));
+    }
+
+    public static void testMergeSort() {
+        for (int n = 1000; n < 20000; n += 1000) {
+            Kollections.mergeSort(randomList(n));
+            System.out.println(n + ";" + Bier.compareCounter);
+            Bier.compareCounter = 0;
+        }
     }
 }
+

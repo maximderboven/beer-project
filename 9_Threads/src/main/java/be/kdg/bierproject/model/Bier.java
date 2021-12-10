@@ -15,9 +15,7 @@ public class Bier implements Comparable<Bier> {
     private int bitterheidsgraad;
     private boolean trappist;
 
-    public static int compareCounter;
-
-    Bier(String naam, Gisting gisting, LocalDate gebrouwenSinds, double alcoholPercentage, int bitterheidsgraad, boolean trappist) {
+    public Bier(String naam, Gisting gisting, LocalDate gebrouwenSinds, double alcoholPercentage, int bitterheidsgraad, boolean trappist) {
         setNaam(naam);
         setGisting(gisting);
         setGebrouwenSinds(gebrouwenSinds);
@@ -37,13 +35,13 @@ public class Bier implements Comparable<Bier> {
     }
 
     public void setGisting(Gisting gisting) {
-        if(gisting != Gisting.ONBEKEND && gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
+        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
             throw new IllegalArgumentException("Kies een juiste gisting.");
         this.gisting = gisting;
     }
 
     public void setGebrouwenSinds(LocalDate gebrouwenSinds) {
-        if(gebrouwenSinds.isAfter(LocalDate.now()))
+        if(!gebrouwenSinds.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("De brouwdatum moet in het verleden liggen.");
         this.gebrouwenSinds = gebrouwenSinds;
     }
@@ -104,16 +102,11 @@ public class Bier implements Comparable<Bier> {
 
     @Override
     public int compareTo(Bier o) {
-        compareCounter++;
         return o.getNaam().compareTo(this.getNaam());
     }
 
     @Override
     public String toString() {
         return String.format("%-25s Sinds:%-12s (%.2f°) Gisting: %-4s",naam,gebrouwenSinds.toString(),alcoholPercentage,gisting.toString());
-    }
-
-    public static int compareCounter() {
-        return compareCounter;
     }
 }
