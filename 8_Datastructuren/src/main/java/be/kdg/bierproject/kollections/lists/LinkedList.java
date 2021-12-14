@@ -1,5 +1,7 @@
-package be.kdg.bierproject.kollections;
+package be.kdg.bierproject.kollections.lists;
 
+
+import be.kdg.bierproject.kollections.Kollections;
 
 public class LinkedList<E> implements List<E> {
     static class Node<V> {
@@ -23,13 +25,15 @@ public class LinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException("index: " + index + ", size: " + size);
         }
         Node<E> newNode = new Node<>(element);
-        if (index == 0) {
-            Node<E> oldRoot = root;
+        if (index == 0) { //op eerste plaats
+//            Node<E> oldRoot = root;
+//            root = newNode;
+//            root.next = oldRoot;
+            newNode.next = root;
             root = newNode;
-            root.next = oldRoot;
-        } else {
+        } else { //middenin toevoegen
             Node<E> beforeNode = root;
-            for (int i = 1;i<index;i++) {
+            for (int i = 1; i < index; i++) {
                 beforeNode = beforeNode.next;
             }
             Node<E> afterNode = beforeNode.next;
@@ -42,6 +46,21 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void add(E element) {
         add(size, element);
+    }
+
+    @Override
+    public boolean remove(E element) {
+        int index = Kollections.lineairSearch(this, element);
+        if (index!=-1) {
+            remove(index);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(E element) {
+        return indexOf(element)!=-1;
     }
 
     @Override
@@ -81,6 +100,11 @@ public class LinkedList<E> implements List<E> {
             size--;
             return oldElement;
         }
+    }
+
+    @Override
+    public int indexOf(E element) {
+        return Kollections.lineairSearch(this, element);
     }
 
     @Override

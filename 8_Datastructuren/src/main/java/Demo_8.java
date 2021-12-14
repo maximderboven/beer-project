@@ -1,4 +1,5 @@
 import be.kdg.bierproject.kollections.*;
+import be.kdg.bierproject.kollections.lists.List;
 import be.kdg.bierproject.model.Bier;
 import be.kdg.bierproject.model.BierFactory;
 import be.kdg.bierproject.model.Gisting;
@@ -80,5 +81,11 @@ public class Demo_8 {
         System.out.println(Kollections.binarySearch(searchlist, onbekend));
 
        System.out.println();
+
+        System.out.println("Get Compare Listmap to Hashmap:");
+        PerformanceTester.compareListMapToHashMap(1000);
+
+        System.out.println("Compare ArraySet to TreeSet:");
+        PerformanceTester.compareArraySetToTreeSet();
     }
 }

@@ -16,6 +16,7 @@ public class Bier implements Comparable<Bier> {
     private boolean trappist;
 
     public static int compareCounter;
+    public static int equalsCounter;
 
     Bier(String naam, Gisting gisting, LocalDate gebrouwenSinds, double alcoholPercentage, int bitterheidsgraad, boolean trappist) {
         setNaam(naam);
@@ -88,20 +89,6 @@ public class Bier implements Comparable<Bier> {
         return trappist;
     }
 
-    //Uniek op basis van naam
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bier bier = (Bier) o;
-        return Objects.equals(naam, bier.naam);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(naam);
-    }
-
     @Override
     public int compareTo(Bier o) {
         compareCounter++;
@@ -115,5 +102,19 @@ public class Bier implements Comparable<Bier> {
 
     public static int compareCounter() {
         return compareCounter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        equalsCounter++;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bier bier = (Bier) o;
+        return Objects.equals(naam, bier.naam);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(naam);
     }
 }

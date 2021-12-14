@@ -1,5 +1,8 @@
 package be.kdg.bierproject.kollections;
 
+import be.kdg.bierproject.kollections.lists.ArrayList;
+import be.kdg.bierproject.kollections.lists.List;
+
 public class Kollections {
     private Kollections() {
     }
