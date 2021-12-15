@@ -1,18 +1,23 @@
 package be.kdg.bierproject.model;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Maxim Derboven
  * @version 1.0 23/09/2021 15:14
  */
 public class Bieren {
-    private Set<Bier> bierenTreeSet = new TreeSet<>();
+    //private Set<Bier> bierenTreeSet = new TreeSet<>();
+    private ArrayBlockingQueue<Bier> bierenTreeSet = new ArrayBlockingQueue<>(10000);
 
     public boolean add(Bier bier) {
-        if (bierenTreeSet.contains(bier))
+        try {
+            bierenTreeSet.put(bier);
+        } catch (InterruptedException e) {
             return false;
-        return bierenTreeSet.add(bier);
+        }
+        return true;
     }
 
     public boolean remove(String naam) {
