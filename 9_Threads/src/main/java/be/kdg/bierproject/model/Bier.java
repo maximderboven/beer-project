@@ -7,61 +7,26 @@ import java.util.Objects;
  * @author Maxim Derboven
  * @version 1.0 23/09/2021 15:13
  */
-public class Bier implements Comparable<Bier> {
-    private String naam;
-    private Gisting gisting;
-    private LocalDate gebrouwenSinds;
-    private double alcoholPercentage;
-    private int bitterheidsgraad;
-    private boolean trappist;
+public final class Bier implements Comparable<Bier> {
+    final private String naam;
+    final private Gisting gisting;
+    final private LocalDate gebrouwenSinds;
+    final private double alcoholPercentage;
+    final private int bitterheidsgraad;
+    final private boolean trappist;
 
     public Bier(String naam, Gisting gisting, LocalDate gebrouwenSinds, double alcoholPercentage, int bitterheidsgraad, boolean trappist) {
-        setNaam(naam);
-        setGisting(gisting);
-        setGebrouwenSinds(gebrouwenSinds);
-        setAlcoholPercentage(alcoholPercentage);
-        setBitterheidsgraad(bitterheidsgraad);
-        setTrappist(trappist);
+        this.naam = naam;
+        this.gisting = gisting;
+        this.gebrouwenSinds = gebrouwenSinds;
+        this.alcoholPercentage = alcoholPercentage;
+        this.bitterheidsgraad = bitterheidsgraad;
+        this.trappist = trappist;
     }
 
     public Bier() {
         this("Onbekend",Gisting.ONBEKEND,LocalDate.now(),0,0,false);
     }
-
-    public void setNaam(String naam) {
-        if(naam == null || naam.equals(""))
-            throw new IllegalArgumentException("De naam mag niet leeg zijn.");
-        this.naam = naam;
-    }
-
-    public void setGisting(Gisting gisting) {
-        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
-            throw new IllegalArgumentException("Kies een juiste gisting.");
-        this.gisting = gisting;
-    }
-
-    public void setGebrouwenSinds(LocalDate gebrouwenSinds) {
-        if(!gebrouwenSinds.isBefore(LocalDate.now()))
-            throw new IllegalArgumentException("De brouwdatum moet in het verleden liggen.");
-        this.gebrouwenSinds = gebrouwenSinds;
-    }
-
-    public void setAlcoholPercentage(double alcoholPercentage) {
-        if(alcoholPercentage <  0 || alcoholPercentage >= 100)
-            throw new IllegalArgumentException("Alcoholpercentage kan niet lager zijn dan 0 en niet hoger dan 100.");
-        this.alcoholPercentage = alcoholPercentage;
-    }
-
-    public void setBitterheidsgraad(int bitterheidsgraad) {
-        if(bitterheidsgraad <  0)
-            throw new IllegalArgumentException("De EBU waarde moet tenminste 0 zijn.");
-        this.bitterheidsgraad = bitterheidsgraad;
-    }
-
-    public void setTrappist(boolean trappist) {
-        this.trappist = trappist;
-    }
-
     public String getNaam() {
         return naam;
     }
