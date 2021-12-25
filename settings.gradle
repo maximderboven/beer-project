@@ -8,4 +8,5 @@ include '6_Persistentie'
 include '7_XML_JSON'
 include '8_Datastructuren'
 include '9_Threads'
+include '10_Dependency'
 
