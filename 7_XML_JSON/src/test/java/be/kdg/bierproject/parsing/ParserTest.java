@@ -3,6 +3,7 @@ package be.kdg.bierproject.parsing;
 import be.kdg.bierproject.data.Data;
 import be.kdg.bierproject.model.Bier;
 import be.kdg.bierproject.model.Bieren;
+import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ class ParserTest {
 
     @Test
     void testStaxDom() {
-        new BierenStaxParser("./datafiles/bieren.xml").staxWriteXML();
+        new BierenStaxParser(bieren,"./datafiles/bieren.xml").staxWriteXML();
         Bieren bieren2 = BierenDomParser.domReadXML("./datafiles/bieren.xml");
         assertArrayEquals(bieren.sortedOnName().toArray(),bieren2.sortedOnName().toArray(), "Bieren zijn niet allemaal aanwezig");
     }

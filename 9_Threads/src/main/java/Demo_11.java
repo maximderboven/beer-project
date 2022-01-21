@@ -2,6 +2,7 @@ import be.kdg.bierproject.model.Bier;
 import be.kdg.bierproject.model.Gisting;
 import be.kdg.bierproject.threading.BierCallable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -15,22 +16,23 @@ public class Demo_11 {
 
 	public static void main(String[] args) {
 
+		List<Future<List<Bier>>> bierenFutures = new ArrayList<>();
+		ExecutorService pool = Executors.newFixedThreadPool(3);
 		while (TESTCOUNT <= 100) {
 			//Callable<List<Bier>>
 			BierCallable bier1 = new BierCallable(bier -> bier.getGisting() == Gisting.HOGE);
 			BierCallable bier2 = new BierCallable(bier -> bier.getBitterheidsgraad() > 10);
 			BierCallable bier3 = new BierCallable(Bier::isTrappist);
 
-			ExecutorService pool = Executors.newFixedThreadPool(3);
 
 			long start = System.currentTimeMillis();
-			Future f1 = pool.submit(bier1);
-			Future f2 = pool.submit(bier2);
-			Future f3 = pool.submit(bier3);
+			bierenFutures.add(pool.submit(bier1));
+			bierenFutures.add(pool.submit(bier2));
+			bierenFutures.add(pool.submit(bier3));
 			try {
-				f1.get();
-				f2.get();
-				f3.get();
+				for (Future<List<Bier>> future : bierenFutures) {
+					future.get();
+				}
 			} catch (InterruptedException | ExecutionException e) {
 				e.printStackTrace();
 			}

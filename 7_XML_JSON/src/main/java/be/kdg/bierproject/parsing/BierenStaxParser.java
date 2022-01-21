@@ -2,7 +2,9 @@ package be.kdg.bierproject.parsing;
 
 import be.kdg.bierproject.data.Data;
 import be.kdg.bierproject.model.Bier;
+import be.kdg.bierproject.model.Bieren;
 import be.kdg.bierproject.model.Gisting;
+import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -19,23 +21,24 @@ import java.time.LocalDate;
 public class BierenStaxParser {
     XMLStreamWriter xmlStreamWriter;
     String path;
+    Bieren bieren;
 
-    public BierenStaxParser(String path) {
+    public BierenStaxParser(Bieren bieren,String path) {
         try {
-            //new IndentingXMLStreamWriter() voor pretty printing - macheert ni
-            this.xmlStreamWriter = XMLOutputFactory.newInstance().createXMLStreamWriter
-                    (new FileWriter(path, StandardCharsets.UTF_8));
+            this.bieren = bieren;
+            this.xmlStreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter
+                    (new FileWriter(path, StandardCharsets.UTF_8)));
         } catch (XMLStreamException | IOException e) {
             e.printStackTrace();
         }
         this.path = path;
     }
 
-    void staxWriteXML() {
+    public void staxWriteXML() {
         try {
             xmlStreamWriter.writeStartDocument();
             xmlStreamWriter.writeStartElement("bieren");
-            for (Bier bier : Data.getData()) {
+            for (Bier bier : bieren.sortedOnName()) {
                 xmlStreamWriter.writeStartElement("bier");
                 xmlStreamWriter.writeAttribute("gisting", bier.getGisting().toString());
 

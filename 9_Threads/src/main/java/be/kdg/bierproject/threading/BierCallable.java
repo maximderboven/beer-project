@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * @author Maxim Derboven
  * @version 1.0 15/12/2021 16:42
  */
-public class BierCallable implements Callable {
+public class BierCallable implements Callable<List<Bier>> {
 	private Predicate<Bier> filter;
 
 	public BierCallable(Predicate<Bier> filter) {
@@ -22,7 +22,7 @@ public class BierCallable implements Callable {
 	}
 
 	@Override
-	public Object call() throws Exception {
+	public List<Bier> call() throws Exception {
 		return Stream.generate(BierFactory::newRandomBier).filter(filter).limit(1000).collect(Collectors.toList());
 	}
 }

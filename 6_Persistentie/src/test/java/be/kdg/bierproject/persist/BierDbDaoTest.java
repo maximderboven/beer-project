@@ -59,6 +59,7 @@ class BierDbDaoTest {
         b.setNaam("Omer");
         assertTrue(bierDbDao.update(b),"Update is niet goed gebeurd");
         assertNotNull(bierDbDao.retrieve("Omer"),"Fout, Omer. is niet gewijzigd in Omer");
+        assertEquals(b.getNaam(),"Omer");
     }
 
     @Test
@@ -68,7 +69,8 @@ class BierDbDaoTest {
         for (Bier b : Data.getData()) {
             bieren.add(bierDbDao.retrieve(b.getNaam()));
         }
-        assertNotEquals(Data.getData().size() - 1, bieren.size(), "Niet goed verwijderd");
+        //EQUALS VAN MAKEN
+        assertEquals(Data.getData().size(), bieren.size(), "Niet goed verwijderd");
         assertNull(bierDbDao.retrieve("Duvel"), "Niet Goed verwijderd, bestaat alsnog");
         assertFalse(bierDbDao.delete("Duvel"), "2 keer verwijderen mogelijk");
     }
@@ -79,6 +81,6 @@ class BierDbDaoTest {
         //fixed door alcoholpercentage gedetailleerder te maken
         Bieren bieren = new Bieren();
         Data.getData().forEach(bieren::add);
-        assertArrayEquals(bieren.sortedOnAlcoholpercentage().toArray(),bierDbDao.sortedOnAlcholpercentage().toArray(), "Niet juist gesorteerd");
+        assertEquals(bieren.sortedOnAlcoholpercentage(),bierDbDao.sortedOnAlcholpercentage(), "Niet juist gesorteerd");
     }
 }

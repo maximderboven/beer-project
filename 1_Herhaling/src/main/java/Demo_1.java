@@ -1,7 +1,9 @@
 import be.kdg.bierproject.data.Data;
 import be.kdg.bierproject.model.Bier;
 import be.kdg.bierproject.model.Bieren;
+import be.kdg.bierproject.model.Gisting;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,6 +52,14 @@ public class Demo_1 {
             System.out.println(bier.toString());
         }
 
+        System.out.println("\n\n Leeg bier:");
+        System.out.println(new Bier().toString());
+        System.out.println("\n\n Falend bier:");
+        try {
+            System.out.println(new Bier("", Gisting.ONBEKEND, LocalDate.of(2050, 1, 1), 30, -5, true).toString());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
     }
 }

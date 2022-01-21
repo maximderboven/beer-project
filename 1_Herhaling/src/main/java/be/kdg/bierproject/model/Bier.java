@@ -25,7 +25,7 @@ public class Bier implements Comparable<Bier> {
     }
 
     public Bier() {
-        this("Onbekend",Gisting.ONBEKEND,LocalDate.now(),0,0,false);
+        this("Onbekend",Gisting.ONBEKEND,LocalDate.of(1000,1,1),0,0,false);
     }
 
     public void setNaam(String naam) {
@@ -35,7 +35,7 @@ public class Bier implements Comparable<Bier> {
     }
 
     public void setGisting(Gisting gisting) {
-        if(gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
+        if(gisting != Gisting.ONBEKEND && gisting != Gisting.HOGE && gisting != Gisting.LAGE && gisting != Gisting.SPONTAAN && gisting != Gisting.GEMENGDE)
             throw new IllegalArgumentException("Kies een juiste gisting.");
         this.gisting = gisting;
     }
